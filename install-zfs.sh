@@ -1075,6 +1075,29 @@ if [[ $# -ne 0 ]]; then
   display_help_and_exit
 fi
 
+# debug stuff ##########################
+
+ZFS_SKIP_LIVE_ZFS_MODULE_INSTALL=1
+v_bpool_name=bpool
+v_bpool_tweaks="-o ashift=12"
+v_linux_distribution=UbuntuServer
+v_linux_distribution_version=18.04
+v_encrypt_rpool=1
+v_passphrase=12345678
+v_rpool_name=rpool
+v_rpool_tweaks="-o ashift=12 -O acltype=posixacl -O compression=lz4 -O dnodesize=auto -O relatime=on -O xattr=sa -O normalization=formD"
+v_selected_disks=("/dev/disk/by-id/$(ls -l /dev/disk/by-id | perl -lane 'print $F[8] if /sda$/')")
+v_swap_size=2
+v_free_tail_space=1
+
+umount /mnt/boot || true
+umount /mnt || true
+zpool destroy bpool || true
+zpool destroy rpool || true
+rm -rf "$c_unpacked_subiquity_dir"
+
+########################################
+
 activate_debug
 trap print_preset_variables ERR
 set_distribution_data
