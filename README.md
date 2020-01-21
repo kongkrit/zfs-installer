@@ -39,7 +39,7 @@ The script is in "open beta"; it's been tested on different configurations, but 
 Start the live CD of a supported Linux distribution, then open a terminal and execute:
 
 ```sh
-GET https://git.io/JelI5 | sudo bash -
+GET https://git.io/JvLOY | sudo bash -
 ```
 
 then follow the instructions; halfway through the procedure, the GUI installer of the O/S will be launched.
@@ -49,7 +49,7 @@ then follow the instructions; halfway through the procedure, the GUI installer o
 Ubuntu Server requires a slightly different execution procedure:
 
 - when the installer welcome screen shows up, tap `Ctrl+Alt+F2`,
-- then type `sudo -- bash -c "$(curl -L https://git.io/JelI5)"`.
+- then type `sudo -- bash -c "$(curl -L https://git.io/JvLOY)"`.
 
 the rest is the same as the generic procedure.
 
@@ -58,7 +58,7 @@ the rest is the same as the generic procedure.
 The program supports unattended installation, via environment variables. The program built-in help explains all the options:
 
 ```sh
-$ wget -qO- https://git.io/JelI5 | bash /dev/stdin --help
+$ wget -qO- https://git.io/JvLOY | bash /dev/stdin --help
 Usage: install-zfs.sh [-h|--help]
 
 Sets up and install a ZFS Ubuntu installation.
