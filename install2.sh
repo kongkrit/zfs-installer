@@ -985,7 +985,7 @@ function install_and_configure_bootloader {
     chroot_execute "mount /boot/efi$((i+1))"
   done
 
-  chroot_execute "grub-install --efi-directory=/boot/efi --bootloader-id=ubuntu-1 --recheck"
+  chroot_execute "grub-install"
 
   chroot_execute "perl -i -pe 's/(GRUB_CMDLINE_LINUX=\")/\${1}root=ZFS=$v_rpool_name /'    /etc/default/grub"
 
@@ -1048,7 +1048,7 @@ function clone_efi_partition {
   done
   chroot_execute "umount /boot/efi"
   chroot_execute "echo ...dropping to bash..."
-  chroot_execute "bash"
+  chroot_execute "bash -"
 }
 
 function configure_boot_pool_import {
