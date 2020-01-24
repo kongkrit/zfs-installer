@@ -1044,7 +1044,7 @@ function clone_efi_partition {
     chroot_execute "mount /boot/efi$((i+1))"
     chroot_execute "rsync -Rai --stats --human-readable --delete --verbose --progress /boot/efi/./ /boot/efi$((i+1))"
     chroot_execute "umount /boot/efi$((i+1))"
-    chroot_execute "efibootmgr --create --disk "${v_selected_disks[i]}" --label "ubuntu-$((i + 1))" --loader '\EFI\ubuntu\grubx64.efi'"
+    chroot_execute "efibootmgr --create --disk "\""${v_selected_disks[i]}"\"" --label "\""ubuntu-$((i + 1))"\"" --loader '\EFI\ubuntu\grubx64.efi'"
   done
   chroot_execute "umount /boot/efi"
 }
