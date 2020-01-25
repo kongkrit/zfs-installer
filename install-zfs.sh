@@ -1021,9 +1021,16 @@ function install_and_configure_bootloader_Debian {
   print_step_info_header
 
   chroot_execute "echo PARTUUID=$(blkid -s PARTUUID -o value "${v_selected_disks[0]}-part1") /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 > /etc/fstab"
+  for ((i = 1; i < ${#v_selected_disks[@]}; i++)); do
+    chroot_execute "echo PARTUUID=$(blkid -s PARTUUID -o value "${v_selected_disks[i]}-part1") /boot/efi$((i+1)) vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab" 
+  done
 
   chroot_execute "mkdir -p /boot/efi"
   chroot_execute "mount /boot/efi"
+  for ((i = 1; i < ${#v_selected_disks[@]}; i++)); do
+    chroot_execute "mkdir -p /boot/efi$((i+1))"
+    chroot_execute "mount /boot/efi$((i+1))"
+  done
 
   chroot_execute "grub-install"
 
@@ -1034,6 +1041,9 @@ function install_and_configure_bootloader_Debian {
   chroot_execute "update-grub"
 
   chroot_execute "umount /boot/efi"
+  for ((i = 1; i < ${#v_selected_disks[@]}; i++)); do
+    chroot_execute "umount /boot/efi$((i+1))"  
+  done
 }
 
 function clone_efi_partition {
